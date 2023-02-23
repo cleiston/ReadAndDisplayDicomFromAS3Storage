@@ -14,8 +14,8 @@ public class Patient {
     private int acquisitionYear;
     private int birthYear;
     private int age;
-    private float height;
-    private float weight;
+    private int height;
+    private int weight;
     private String side;
     private boolean fractureStatus;
     private double calibration_a;
@@ -62,22 +62,6 @@ public class Patient {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
     }
 
     public String getSide() {
@@ -134,6 +118,22 @@ public class Patient {
 
     public void setFailureAngle(String failureAngle) {
         this.failureAngle = failureAngle;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
     
 }
