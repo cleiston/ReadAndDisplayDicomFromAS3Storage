@@ -5,6 +5,7 @@
 package com.mycompany.querycsvusingsql;
 
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +19,17 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        filtersString = "";
+        ff = new FiltersFrame(this);
     }
+    
+    private String filtersString;
+    private FiltersFrame ff;
+
+    public void setFiltersString(String filtersString) {
+        this.filtersString = filtersString;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,10 +45,12 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePatients = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        labelFiltersSet = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuLoadCsv = new javax.swing.JMenuItem();
+        menuAddFilters = new javax.swing.JMenuItem();
+        menuRemoveFilters = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -58,17 +71,6 @@ public class MainFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablePatients);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 189, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jMenu3.setText("File");
 
         menuLoadCsv.setText("Load CSV file into table");
@@ -78,6 +80,22 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuLoadCsv);
+
+        menuAddFilters.setText("Add filters");
+        menuAddFilters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddFiltersActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddFilters);
+
+        menuRemoveFilters.setText("Remove filters");
+        menuRemoveFilters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRemoveFiltersActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuRemoveFilters);
 
         jMenuBar2.add(jMenu3);
 
@@ -92,31 +110,39 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelFiltersSet)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(labelFiltersSet)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuLoadCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadCsvActionPerformed
+    
+    public void fillTable(){
         String col[] = {"Patient ID","Sex","Birth Year", "Height", "Weight", "Is Fractured"};
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         
         QueryCSV qcsv = new QueryCSV("/home/almadb/Downloads/");
-        List<Patient> patients = qcsv.findAll();
+        List<Patient> patients;
+        
+        if(filtersString.length() > 0){
+            patients = qcsv.findByQuery(filtersString);
+        }
+        else {
+            patients = qcsv.findAll();
+            System.out.println("tamano da string: " + filtersString);
+        }
         
         if(patients == null) return;
         
@@ -134,7 +160,23 @@ public class MainFrame extends javax.swing.JFrame {
         
         tablePatients.setModel(tableModel);
         tablePatients.setAutoCreateRowSorter(true);
+    }
+    
+    
+    private void menuLoadCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadCsvActionPerformed
+        fillTable();
     }//GEN-LAST:event_menuLoadCsvActionPerformed
+
+    private void menuAddFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddFiltersActionPerformed
+        ff.setVisible(true);
+        ff.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        labelFiltersSet.setText("Filters might have been in place!");
+    }//GEN-LAST:event_menuAddFiltersActionPerformed
+
+    private void menuRemoveFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveFiltersActionPerformed
+        filtersString = "";
+        ff.dispose();
+    }//GEN-LAST:event_menuRemoveFiltersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,9 +220,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelFiltersSet;
+    private javax.swing.JMenuItem menuAddFilters;
     private javax.swing.JMenuItem menuLoadCsv;
+    private javax.swing.JMenuItem menuRemoveFilters;
     private javax.swing.JTable tablePatients;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,13 @@ public class FiltersFrame extends javax.swing.JFrame {
     public FiltersFrame() {
         initComponents();
     }
+    
+    public FiltersFrame(MainFrame mainFrame) {
+        initComponents();
+        this.mainFrame = mainFrame;
+    }
+    
+    private MainFrame mainFrame;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +33,324 @@ public class FiltersFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupSex = new javax.swing.ButtonGroup();
+        buttonGroupFracture = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        fieldPatientId = new javax.swing.JTextField();
+        fieldHeight = new javax.swing.JTextField();
+        fieldAge = new javax.swing.JTextField();
+        fieldWeight = new javax.swing.JTextField();
+        fieldBirthYear = new javax.swing.JTextField();
+        radiobMasculine = new javax.swing.JRadioButton();
+        radiobFemine = new javax.swing.JRadioButton();
+        radiobFractureYes = new javax.swing.JRadioButton();
+        radiobFractureNo = new javax.swing.JRadioButton();
+        fieldAgeMin = new javax.swing.JTextField();
+        fieldAgeMax = new javax.swing.JTextField();
+        fieldHeightMin = new javax.swing.JTextField();
+        fieldHeightMax = new javax.swing.JTextField();
+        fieldWeightMin = new javax.swing.JTextField();
+        fieldWeightMax = new javax.swing.JTextField();
+        fieldBirthYearMin = new javax.swing.JTextField();
+        fieldBirthYearMax = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jLabel1.setText("Add filters to refine the search for a patient:");
+
+        jLabel2.setText("Patient ID");
+
+        jLabel3.setText("Sex");
+
+        jLabel4.setText("Age");
+
+        jLabel5.setText("Single value");
+
+        jLabel6.setText("Range");
+
+        jLabel7.setText("Height");
+
+        jLabel8.setText("Weight");
+
+        jLabel9.setText("Fracture status");
+
+        jLabel10.setText("Birth Year");
+
+        fieldPatientId.setColumns(6);
+
+        fieldHeight.setColumns(6);
+
+        fieldAge.setColumns(6);
+
+        fieldWeight.setColumns(6);
+
+        fieldBirthYear.setColumns(6);
+
+        buttonGroupSex.add(radiobMasculine);
+        radiobMasculine.setText("M");
+        radiobMasculine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radiobMasculineActionPerformed(evt);
+            }
+        });
+
+        buttonGroupSex.add(radiobFemine);
+        radiobFemine.setText("F");
+        radiobFemine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radiobFemineActionPerformed(evt);
+            }
+        });
+
+        buttonGroupFracture.add(radiobFractureYes);
+        radiobFractureYes.setText("Yes");
+
+        buttonGroupFracture.add(radiobFractureNo);
+        radiobFractureNo.setText("No");
+
+        fieldAgeMin.setColumns(3);
+
+        fieldAgeMax.setColumns(3);
+
+        fieldHeightMin.setColumns(3);
+
+        fieldHeightMax.setColumns(3);
+
+        fieldWeightMin.setColumns(3);
+
+        fieldWeightMax.setColumns(3);
+
+        fieldBirthYearMin.setColumns(3);
+
+        fieldBirthYearMax.setColumns(3);
+
+        jLabel11.setText("Min");
+
+        jLabel12.setText("Max");
+
+        jButton1.setText("Set filters");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(radiobFractureYes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radiobFractureNo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(radiobMasculine)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radiobFemine))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(fieldPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel11)
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel12))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(fieldBirthYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(50, 50, 50)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(fieldAgeMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(fieldAgeMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(fieldHeightMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(fieldHeightMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(fieldWeightMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(fieldWeightMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(fieldBirthYearMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(fieldBirthYearMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(30, 30, 30))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(fieldPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(fieldBirthYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldBirthYearMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldBirthYearMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(fieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldAgeMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldAgeMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(fieldHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldHeightMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldHeightMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(fieldWeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldWeightMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldWeightMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(radiobFractureYes)
+                        .addComponent(radiobFractureNo)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(radiobMasculine)
+                        .addComponent(radiobFemine)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(14, 14, 14))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void radiobMasculineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobMasculineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radiobMasculineActionPerformed
+
+    private void radiobFemineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobFemineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radiobFemineActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // add filters to string filters
+        String filters = "";
+        String patientId = fieldPatientId.getText();
+        String height = fieldHeight.getText();
+        String age = fieldAge.getText();
+        String weight = fieldWeight.getText();
+        String birthYear = fieldBirthYear.getText();
+        Boolean isMasculine = radiobMasculine.isSelected();
+        Boolean isFeminine = radiobFemine.isSelected();
+        Boolean isFraturedYesSelected = radiobFractureYes.isSelected();
+        Boolean isFraturedNoSelected = radiobFractureNo.isSelected();
+        String ageMin = fieldAgeMin.getText();
+        String ageMax = fieldAgeMax.getText();
+        String heightMin = fieldHeightMin.getText();
+        String heightMax = fieldHeightMax.getText();
+        String weightMin = fieldWeightMin.getText();
+        String weightMax = fieldWeightMax.getText();
+        String birthYearMin = fieldBirthYearMin.getText();
+        String birthYearMax = fieldBirthYearMax.getText();
+        
+        // process strings
+        filters += patientId.length() > 0 ? " PatientID='" + patientId + "' AND " : "";
+        filters += height.length() > 0 ? " Height='" + height + "' AND " : "";
+        filters += age.length() > 0 ? " Age='" + age + "' AND " : "";
+        filters += weight.length() > 0 ? " Weight='" + weight + "' AND " : "";
+        filters += birthYear.length() > 0 ? " BirthYear='" + birthYear + "' AND " : "";
+        filters += ageMin.length() > 0 && ageMax.length() > 0 ? " Age>='" + ageMin + "' AND Age<='" + ageMax + "' AND " : "";
+        filters += heightMin.length() > 0 && heightMax.length() > 0 ? " Height>='" + heightMin + "' AND Height<='" + heightMax + "' AND " : "";
+        filters += weightMin.length() > 0 && weightMax.length() > 0 ? " Weight>='" + weightMin + "' AND Weight<='" + weightMax + "' AND " : "";
+        filters += birthYearMin.length() > 0 && birthYearMax.length() > 0 ? " BirthYear>='" + birthYearMin + "' AND BirthYear<='" + birthYearMax + "' AND" : "";
+        filters += isMasculine ? " Sex='M' AND " : "";
+        filters += isFeminine ? " Sex='F' AND " : "";
+        filters += isFraturedYesSelected ? " FractureStatus='1' AND " : "";
+        filters += isFraturedNoSelected ? " FractureStatus='0' AND " : "";
+        
+        // remove last AND
+        filters = filters.length() > 0 ? filters.substring(0, filters.length() - 4) : filters;
+        
+        System.out.println(filters);
+        this.setVisible(false);
+        mainFrame.setFiltersString(filters);
+        
+        mainFrame.fillTable(); // reaload the table
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +388,38 @@ public class FiltersFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupFracture;
+    private javax.swing.ButtonGroup buttonGroupSex;
+    private javax.swing.JTextField fieldAge;
+    private javax.swing.JTextField fieldAgeMax;
+    private javax.swing.JTextField fieldAgeMin;
+    private javax.swing.JTextField fieldBirthYear;
+    private javax.swing.JTextField fieldBirthYearMax;
+    private javax.swing.JTextField fieldBirthYearMin;
+    private javax.swing.JTextField fieldHeight;
+    private javax.swing.JTextField fieldHeightMax;
+    private javax.swing.JTextField fieldHeightMin;
+    private javax.swing.JTextField fieldPatientId;
+    private javax.swing.JTextField fieldWeight;
+    private javax.swing.JTextField fieldWeightMax;
+    private javax.swing.JTextField fieldWeightMin;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton radiobFemine;
+    private javax.swing.JRadioButton radiobFractureNo;
+    private javax.swing.JRadioButton radiobFractureYes;
+    private javax.swing.JRadioButton radiobMasculine;
     // End of variables declaration//GEN-END:variables
 }
