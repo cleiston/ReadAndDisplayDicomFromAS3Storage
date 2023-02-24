@@ -51,7 +51,7 @@ public class QueryCSV {
                 p.setHeight(rs.getInt("Height"));
                 p.setWeight(rs.getInt("Weight"));
                 p.setSide(rs.getString("Side"));
-                p.setFractureStatus(rs.getBoolean("FractureStatus"));
+                p.setFractureStatus(rs.getString("FractureStatus").equals("1"));
                 p.setCalibration_a(rs.getDouble("Calibration_a"));
                 p.setCalibration_num(rs.getDouble("Calibration_num"));
                 p.setArfo(rs.getDouble("ARF0"));

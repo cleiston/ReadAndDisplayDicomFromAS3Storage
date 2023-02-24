@@ -43,9 +43,16 @@ public class QueryCsvUsingSql {
         }
         */
         
+        /*
+        
         QueryCSV qcsv = new QueryCSV("/home/almadb/Downloads/");
         List<Patient> p = qcsv.findByQuery("Height >= '150' AND BirthYear > '1940'");
         System.out.println(p.get(0).getWeight());
+
+        */
+        
+        MainFrame mf = new MainFrame();
+        mf.setVisible(true);
         
     }
 }
