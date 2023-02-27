@@ -123,7 +123,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jButtonPatientDetails)
                     .addComponent(labelFiltersSet)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +134,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonPatientDetails)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,6 +195,7 @@ public class MainFrame extends javax.swing.JFrame {
         if(isRowSelected){
             // get first column value from selected row
             String patientSelected = tablePatients.getValueAt(tablePatients.getSelectedRow(), 0).toString();
+            JOptionPane.showMessageDialog(null, "You selected patient " + patientSelected, "Patient selected", JOptionPane.WARNING_MESSAGE);
         }
         else
         {
