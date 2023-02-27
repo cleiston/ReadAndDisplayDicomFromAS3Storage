@@ -48,8 +48,8 @@ public class QueryCSV {
                 p.setAcquisitionYear(rs.getInt("AcquisitionYear"));
                 p.setBirthYear(rs.getInt("BirthYear"));
                 p.setAge(rs.getInt("Age"));
-                p.setHeight(rs.getInt("Height"));
-                p.setWeight(rs.getInt("Weight"));
+                p.setHeight((int)rs.getFloat("Height"));
+                p.setWeight((int)rs.getFloat("Weight"));
                 p.setSide(rs.getString("Side"));
                 p.setFractureStatus(rs.getString("FractureStatus").equals("1"));
                 p.setCalibration_a(rs.getDouble("Calibration_a"));

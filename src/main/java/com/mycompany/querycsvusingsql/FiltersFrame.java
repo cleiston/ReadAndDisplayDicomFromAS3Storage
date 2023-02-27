@@ -4,6 +4,8 @@
  */
 package com.mycompany.querycsvusingsql;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author almadb
@@ -306,50 +308,74 @@ public class FiltersFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radiobFemineActionPerformed
 
+    private boolean validate(String singleValue, String min, String max){
+        return 
+                singleValue.length() == 0 && min.length() > 0 && max.length() > 0
+            ||
+                singleValue.length() > 0 && min.length() == 0 && max.length() == 0
+            ||
+                singleValue.length() == 0 && min.length() == 0 && max.length() == 0; // they can all be empty
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // add filters to string filters
         String filters = "";
-        String patientId = fieldPatientId.getText();
-        String height = fieldHeight.getText();
-        String age = fieldAge.getText();
-        String weight = fieldWeight.getText();
-        String birthYear = fieldBirthYear.getText();
+        String patientId = fieldPatientId.getText().trim();
+        String height = fieldHeight.getText().trim();
+        String age = fieldAge.getText().trim();
+        String weight = fieldWeight.getText().trim();
+        String birthYear = fieldBirthYear.getText().trim();
         Boolean isMasculine = radiobMasculine.isSelected();
         Boolean isFeminine = radiobFemine.isSelected();
         Boolean isFraturedYesSelected = radiobFractureYes.isSelected();
         Boolean isFraturedNoSelected = radiobFractureNo.isSelected();
-        String ageMin = fieldAgeMin.getText();
-        String ageMax = fieldAgeMax.getText();
-        String heightMin = fieldHeightMin.getText();
-        String heightMax = fieldHeightMax.getText();
-        String weightMin = fieldWeightMin.getText();
-        String weightMax = fieldWeightMax.getText();
-        String birthYearMin = fieldBirthYearMin.getText();
-        String birthYearMax = fieldBirthYearMax.getText();
+        String ageMin = fieldAgeMin.getText().trim();
+        String ageMax = fieldAgeMax.getText().trim();
+        String heightMin = fieldHeightMin.getText().trim();
+        String heightMax = fieldHeightMax.getText().trim();
+        String weightMin = fieldWeightMin.getText().trim();
+        String weightMax = fieldWeightMax.getText().trim();
+        String birthYearMin = fieldBirthYearMin.getText().trim();
+        String birthYearMax = fieldBirthYearMax.getText().trim();
         
-        // process strings
-        filters += patientId.length() > 0 ? " PatientID='" + patientId + "' AND " : "";
-        filters += height.length() > 0 ? " Height='" + height + "' AND " : "";
-        filters += age.length() > 0 ? " Age='" + age + "' AND " : "";
-        filters += weight.length() > 0 ? " Weight='" + weight + "' AND " : "";
-        filters += birthYear.length() > 0 ? " BirthYear='" + birthYear + "' AND " : "";
-        filters += ageMin.length() > 0 && ageMax.length() > 0 ? " Age>='" + ageMin + "' AND Age<='" + ageMax + "' AND " : "";
-        filters += heightMin.length() > 0 && heightMax.length() > 0 ? " Height>='" + heightMin + "' AND Height<='" + heightMax + "' AND " : "";
-        filters += weightMin.length() > 0 && weightMax.length() > 0 ? " Weight>='" + weightMin + "' AND Weight<='" + weightMax + "' AND " : "";
-        filters += birthYearMin.length() > 0 && birthYearMax.length() > 0 ? " BirthYear>='" + birthYearMin + "' AND BirthYear<='" + birthYearMax + "' AND" : "";
-        filters += isMasculine ? " Sex='M' AND " : "";
-        filters += isFeminine ? " Sex='F' AND " : "";
-        filters += isFraturedYesSelected ? " FractureStatus='1' AND " : "";
-        filters += isFraturedNoSelected ? " FractureStatus='0' AND " : "";
+        Boolean validSearch = 
+                validate(height, heightMin, heightMax)
+            &&
+                validate(age, ageMin, ageMax)
+            &&
+                validate(weight, weightMin, weightMax)
+            &&
+                validate(birthYear, birthYearMin, birthYearMax);
         
-        // remove last AND
-        filters = filters.length() > 0 ? filters.substring(0, filters.length() - 4) : filters;
+        if(validSearch){
         
-        System.out.println(filters);
-        this.setVisible(false);
-        mainFrame.setFiltersString(filters);
-        
-        mainFrame.fillTable(); // reaload the table
+            // process strings
+            filters += patientId.length() > 0 ? " PatientID='" + patientId + "' AND " : "";
+            filters += height.length() > 0 ? " Height='" + height + "' AND " : "";
+            filters += age.length() > 0 ? " Age='" + age + "' AND " : "";
+            filters += weight.length() > 0 ? " Weight='" + weight + "' AND " : "";
+            filters += birthYear.length() > 0 ? " BirthYear='" + birthYear + "' AND " : "";
+            filters += ageMin.length() > 0 && ageMax.length() > 0 ? " Age>='" + ageMin + "' AND Age<='" + ageMax + "' AND " : "";
+            filters += heightMin.length() > 0 && heightMax.length() > 0 ? " Height>='" + heightMin + "' AND Height<='" + heightMax + "' AND " : "";
+            filters += weightMin.length() > 0 && weightMax.length() > 0 ? " Weight>='" + weightMin + "' AND Weight<='" + weightMax + "' AND " : "";
+            filters += birthYearMin.length() > 0 && birthYearMax.length() > 0 ? " BirthYear>='" + birthYearMin + "' AND BirthYear<='" + birthYearMax + "' AND" : "";
+            filters += isMasculine ? " Sex='M' AND " : "";
+            filters += isFeminine ? " Sex='F' AND " : "";
+            filters += isFraturedYesSelected ? " FractureStatus='1' AND " : "";
+            filters += isFraturedNoSelected ? " FractureStatus='0' AND " : "";
+
+            // remove last AND
+            filters = filters.length() > 0 ? filters.substring(0, filters.length() - 4) : filters;
+
+            System.out.println(filters);
+            this.setVisible(false);
+            mainFrame.setFiltersString(filters);
+
+            mainFrame.fillTable(); // reaload the table
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "In order to apply a filter, you cannot fill in both Single Value and Range fields for a given parameter.", "Error at applying filter", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
