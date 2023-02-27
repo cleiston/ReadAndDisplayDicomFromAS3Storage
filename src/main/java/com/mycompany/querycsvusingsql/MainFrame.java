@@ -22,10 +22,12 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         filtersString = "";
         ff = new FiltersFrame(this);
+        datalake = null;
     }
     
     private String filtersString;
     private FiltersFrame ff;
+    private Datalake datalake;
 
     public void setFiltersString(String filtersString) {
         this.filtersString = filtersString;
@@ -48,10 +50,12 @@ public class MainFrame extends javax.swing.JFrame {
         tablePatients = new javax.swing.JTable();
         labelFiltersSet = new javax.swing.JLabel();
         jButtonPatientDetails = new javax.swing.JButton();
+        labelConnectedDatalake = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuLoadCsv = new javax.swing.JMenuItem();
         menuAddFilters = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuRemoveFilters = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
@@ -98,6 +102,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu3.add(menuAddFilters);
 
+        jMenuItem1.setText("Connect datalake");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
         menuRemoveFilters.setText("Remove filters");
         menuRemoveFilters.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,9 +132,13 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonPatientDetails)
                     .addComponent(labelFiltersSet)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(labelConnectedDatalake)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPatientDetails))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,9 +148,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(labelFiltersSet)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonPatientDetails)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonPatientDetails)
+                    .addComponent(labelConnectedDatalake))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,6 +221,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonPatientDetailsActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        datalake = new Datalake();
+        if(datalake.bucketExists("patientimages"))
+            labelConnectedDatalake.setText("Connected to datalake");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,7 +270,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelConnectedDatalake;
     private javax.swing.JLabel labelFiltersSet;
     private javax.swing.JMenuItem menuAddFilters;
     private javax.swing.JMenuItem menuLoadCsv;

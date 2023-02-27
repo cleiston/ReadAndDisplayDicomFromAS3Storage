@@ -1,5 +1,6 @@
 package com.mycompany.querycsvusingsql;
 
+import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
 import io.minio.ListObjectsArgs;
 import io.minio.MinioClient;
@@ -100,5 +101,17 @@ public class Datalake {
             stream = null;
         }
         return stream;
+    }
+    
+    public boolean bucketExists(String bucketName){
+        boolean exists;
+        try {
+            exists =
+                    minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+        } catch (Exception e) {
+            System.err.println("Error checking for bucket." + e.getMessage());
+            exists = false;
+        }
+        return exists;
     }
 }
