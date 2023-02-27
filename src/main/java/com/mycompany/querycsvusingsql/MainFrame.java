@@ -6,6 +6,7 @@ package com.mycompany.querycsvusingsql;
 
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePatients = new javax.swing.JTable();
         labelFiltersSet = new javax.swing.JLabel();
+        jButtonPatientDetails = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         menuLoadCsv = new javax.swing.JMenuItem();
@@ -70,6 +72,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tablePatients);
+
+        jButtonPatientDetails.setText("View patient details");
+        jButtonPatientDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPatientDetailsActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("File");
 
@@ -111,6 +120,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonPatientDetails)
                     .addComponent(labelFiltersSet)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -122,7 +132,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(labelFiltersSet)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonPatientDetails)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,6 +190,18 @@ public class MainFrame extends javax.swing.JFrame {
         ff.dispose();
     }//GEN-LAST:event_menuRemoveFiltersActionPerformed
 
+    private void jButtonPatientDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPatientDetailsActionPerformed
+        boolean isRowSelected = !tablePatients.getSelectionModel().isSelectionEmpty();
+        if(isRowSelected){
+            // get first column value from selected row
+            String patientSelected = tablePatients.getValueAt(tablePatients.getSelectedRow(), 0).toString();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "You must select one patient.", "Patient not selected", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonPatientDetailsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,6 +238,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonPatientDetails;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
