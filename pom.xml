@@ -23,5 +23,17 @@
             <version>8.4.6</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.dcm4che.tool</groupId>
+            <artifactId>dcm4che-tool-dcm2jpg</artifactId>
+            <version>5.29.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-shared-utils</artifactId>
+            <version>3.3.4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

@@ -4,8 +4,17 @@
  */
 package com.mycompany.querycsvusingsql;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.io.FileUtils;
+import org.dcm4che3.tool.dcm2jpg.Dcm2Jpg;
+import org.dcm4che3.tool.dcm2jpg.ImageView;
 
 /**
  *
@@ -19,14 +28,16 @@ public class PatientDetails extends javax.swing.JFrame {
     public PatientDetails() {
         initComponents();
         datalake = null;
+        imageIcon = null;
     }
     
     public PatientDetails(Datalake datalake) {
-        initComponents();
+        this();
         this.datalake = datalake;
     }
     
     private Datalake datalake;
+    private ImageIcon imageIcon;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,8 +52,9 @@ public class PatientDetails extends javax.swing.JFrame {
         textFieldPatientID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableListImages = new javax.swing.JTable();
-        labelPreview = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        labelPreview = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,9 +80,14 @@ public class PatientDetails extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableListImages);
 
-        labelPreview.setText("Preview");
-
         jLabel2.setText("Acquisition Date");
+
+        jButton1.setText("Preview Image Selected");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,11 +101,17 @@ public class PatientDetails extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(142, 142, 142)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPreview)
-                    .addComponent(jLabel2))
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(labelPreview)
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(82, 82, 82))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,30 +119,53 @@ public class PatientDetails extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPreview))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(62, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(235, 235, 235))))
+                    .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelPreview, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableListImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListImagesMouseClicked
+        //labelPreview.setIcon(new ImageIcon("preview.jpg"));
+        
+    }//GEN-LAST:event_tableListImagesMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean isRowSelected = !tableListImages.getSelectionModel().isSelectionEmpty();
         if(isRowSelected && datalake != null){ // only works if there is a row selected and there's an instance of the datalake
             String imageSelected = tableListImages.getValueAt(tableListImages.getSelectedRow(), 0).toString();
             System.out.println(imageSelected);
+            InputStream imageFromDatalake = datalake.getObject("patientimages", imageSelected);
+            File outputFile = new File("temp.dcm");
+            try {
+                FileUtils.copyInputStreamToFile(imageFromDatalake, outputFile);
+                Dcm2Jpg.convertDcm2Jpg("temp.dcm","preview.jpg");
+                ImageView imageView = new ImageView();
+                if(imageIcon != null) imageIcon.getImage().flush();
+                imageIcon = new ImageIcon("preview.jpg");
+                imageView.setContentPane(new JLabel(imageIcon));
+                imageView.setVisible(true);
+                imageView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+            catch(Exception e){
+                System.err.println("Cannot preview image. " + e.getMessage());
+            }
+            
         }
-        
-    }//GEN-LAST:event_tableListImagesMouseClicked
+        else {
+            JOptionPane.showMessageDialog(null, "No image selected", "Error at selecting image", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +203,7 @@ public class PatientDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
