@@ -151,6 +151,7 @@ public class PatientDetails extends javax.swing.JFrame {
                 FileUtils.copyInputStreamToFile(imageFromDatalake, outputFile);
                 Dcm2Jpg.convertDcm2Jpg("temp.dcm","preview.jpg");
                 ImageView imageView = new ImageView();
+                imageView.setTitle(imageSelected);
                 if(imageIcon != null) imageIcon.getImage().flush();
                 imageIcon = new ImageIcon("preview.jpg");
                 imageView.setContentPane(new JLabel(imageIcon));
