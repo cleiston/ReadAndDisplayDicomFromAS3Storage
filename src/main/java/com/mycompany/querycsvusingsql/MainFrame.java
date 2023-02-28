@@ -4,6 +4,7 @@
  */
 package com.mycompany.querycsvusingsql;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -213,7 +214,20 @@ public class MainFrame extends javax.swing.JFrame {
         if(isRowSelected){
             // get first column value from selected row
             String patientSelected = tablePatients.getValueAt(tablePatients.getSelectedRow(), 0).toString();
-            JOptionPane.showMessageDialog(null, "You selected patient " + patientSelected, "Patient selected", JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "You selected patient " + patientSelected, "Patient selected", JOptionPane.WARNING_MESSAGE);
+            PatientDetails pd = new PatientDetails(datalake);
+            
+            List<String> imagesList = new ArrayList<>();
+            if(datalake == null){
+                imagesList.add("No images to show.");
+            }
+            else {
+                imagesList = datalake.getPatientFromBucket("patientimages", patientSelected);
+            }
+            
+            pd.fillTable(patientSelected, imagesList);
+            pd.setVisible(true);
+            pd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         else
         {

@@ -73,6 +73,26 @@ public class Datalake {
         return itemsName;
     }
     
+    public List<String> getPatientFromBucket(String bucket, String patient){
+        Iterable<Result<Item>> results = getItemsFromBucket(bucket);
+        if(results == null) return null;
+        ArrayList<String> itemsName = new ArrayList<>();
+        String dir;
+        for(Result<Item> r : results){
+            try {
+                dir = r.get().objectName();
+                if(dir.contains(patient)){
+                    itemsName.add(dir); // add only the files related to a patient
+                }
+            } catch (Exception e) {
+                System.err.println("Error getting items: " + e.getMessage());
+                itemsName = null;
+                break;
+            }
+        }
+        return itemsName;
+    }
+    
     public List<String> getBucketsList(){
         List<String> bucketListArray = new ArrayList<>();
         List<Bucket> bucketList;
