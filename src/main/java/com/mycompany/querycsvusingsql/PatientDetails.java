@@ -136,8 +136,8 @@ public class PatientDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableListImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListImagesMouseClicked
-        //labelPreview.setIcon(new ImageIcon("preview.jpg"));
-        
+        ExtractDicomData edd = new ExtractDicomData();
+        System.out.println(edd.get("00200010", "Value"));
     }//GEN-LAST:event_tableListImagesMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
