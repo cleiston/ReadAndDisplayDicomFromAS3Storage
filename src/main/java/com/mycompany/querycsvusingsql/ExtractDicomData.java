@@ -91,7 +91,30 @@ public class ExtractDicomData {
                     .get("Value").getAsJsonArray()
                     .get(0).toString();
         }
+        if(value.length() > 0) value = value.substring(1, value.length()-1); // remove quotes
         return value;
     }
-        
+     
+    public String getStudyDate(){
+        // 00080020
+        String value = "";
+        if(isData()){
+            value = root.getAsJsonObject()
+                    .get("00080020").getAsJsonObject()
+                    .get("Value").getAsJsonArray()
+                    .get(0).toString();
+        }
+        return value;
+    }
+    
+    public String getStudyDateFormatted(){
+        // 00080020
+        String value = getStudyDate();
+        if(isData() && value.length()> 0){
+            value = value.substring(1, value.length()-1);
+            String date = value.substring(6, 8) + "/" + value.substring(4, 6) + "/" + value.substring(0, 4);
+            value = date;
+        }
+        return value;
+    }
 }
