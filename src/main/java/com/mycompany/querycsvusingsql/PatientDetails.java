@@ -6,6 +6,7 @@ package com.mycompany.querycsvusingsql;
 
 import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -167,33 +168,37 @@ public class PatientDetails extends javax.swing.JFrame {
 
     private void tableListImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListImagesMouseClicked
         ExtractDicomData edd = new ExtractDicomData();
-        System.out.println(edd.get("00200010", "Value"));
+        String imageSelected = tableListImages.getValueAt(tableListImages.getSelectedRow(), 0).toString();
+        downloadImage(imageSelected);
         fieldPatientId.setText(edd.getStudyId());
         fieldStudyDate.setText(edd.getStudyDateFormatted());
     }//GEN-LAST:event_tableListImagesMouseClicked
 
+    private void downloadImage(String imageSelected){
+        FileUtils.deleteQuietly(new File("temp.dcm"));
+        FileUtils.deleteQuietly(new File("preview.jpg"));
+        InputStream imageFromDatalake = datalake.getObject("patientimages", imageSelected);
+        File outputFile = new File("temp.dcm");
+        try {
+            FileUtils.copyInputStreamToFile(imageFromDatalake, outputFile);
+            Dcm2Jpg.convertDcm2Jpg("temp.dcm","preview.jpg");          
+        }
+        catch(Exception e){
+            System.err.println("Cannot preview image. " + e.getMessage());
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean isRowSelected = !tableListImages.getSelectionModel().isSelectionEmpty();
-        if(isRowSelected && datalake != null){ // only works if there is a row selected and there's an instance of the datalake
-            String imageSelected = tableListImages.getValueAt(tableListImages.getSelectedRow(), 0).toString();
-            System.out.println(imageSelected);
-            InputStream imageFromDatalake = datalake.getObject("patientimages", imageSelected);
-            File outputFile = new File("temp.dcm");
-            try {
-                FileUtils.copyInputStreamToFile(imageFromDatalake, outputFile);
-                Dcm2Jpg.convertDcm2Jpg("temp.dcm","preview.jpg");
-                ImageView imageView = new ImageView();
-                imageView.setTitle(imageSelected);
-                if(imageIcon != null) imageIcon.getImage().flush();
-                imageIcon = new ImageIcon("preview.jpg");
-                imageView.setContentPane(new JLabel(imageIcon));
-                imageView.setVisible(true);
-                imageView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-            catch(Exception e){
-                System.err.println("Cannot preview image. " + e.getMessage());
-            }
-            
+        String imageSelected = tableListImages.getValueAt(tableListImages.getSelectedRow(), 0).toString();
+        if(isRowSelected && datalake != null){ // only works if there is a row selected and there's an instance of the datalake       
+            ImageView imageView = new ImageView();
+            imageView.setTitle(imageSelected);
+            if(imageIcon != null) imageIcon.getImage().flush();
+            imageIcon = new ImageIcon("preview.jpg");
+            imageView.setContentPane(new JLabel(imageIcon));
+            imageView.setVisible(true);
+            imageView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         else {
             JOptionPane.showMessageDialog(null, "No image selected", "Error at selecting image", JOptionPane.WARNING_MESSAGE);

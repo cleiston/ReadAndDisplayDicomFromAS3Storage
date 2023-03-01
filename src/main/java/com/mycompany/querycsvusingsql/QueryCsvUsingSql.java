@@ -5,6 +5,9 @@
 
 package com.mycompany.querycsvusingsql;
 
+import java.io.File;
+import org.apache.commons.io.FileUtils;
+
 /**
  *
  * @author almadb
@@ -40,7 +43,8 @@ public class QueryCsvUsingSql {
         System.out.println(p.get(0).getWeight());
 
         */
-        
+        FileUtils.deleteQuietly(new File("temp.dcm"));
+        FileUtils.deleteQuietly(new File("preview.jpg"));
         MainFrame mf = new MainFrame();
         mf.setVisible(true);
         

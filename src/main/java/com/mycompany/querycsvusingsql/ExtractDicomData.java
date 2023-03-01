@@ -28,9 +28,13 @@ public class ExtractDicomData {
         return root != null && jsonString != null;
     }
     
-    ExtractDicomData(){
+    public void close(){
         root = null;
         jsonString = null;
+    }
+    
+    ExtractDicomData(){
+        close();
         try {
             DicomInputStream dis = new DicomInputStream(new FileInputStream("temp.dcm"));
         
