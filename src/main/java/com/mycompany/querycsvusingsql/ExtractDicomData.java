@@ -81,5 +81,17 @@ public class ExtractDicomData {
         }
         return value;
     }
+    
+    public String getStudyId(){
+        // 00200010
+        String value = "";
+        if(isData()){
+            value = root.getAsJsonObject()
+                    .get("00200010").getAsJsonObject()
+                    .get("Value").getAsJsonArray()
+                    .get(0).toString();
+        }
+        return value;
+    }
         
 }
