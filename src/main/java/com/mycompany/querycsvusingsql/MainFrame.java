@@ -29,6 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     private String filtersString;
     private FiltersFrame ff;
     private Datalake datalake;
+    private boolean addcsv;
 
     public void setFiltersString(String filtersString) {
         this.filtersString = filtersString;
@@ -54,9 +55,10 @@ public class MainFrame extends javax.swing.JFrame {
         labelConnectedDatalake = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuAddCsv = new javax.swing.JMenuItem();
         menuLoadCsv = new javax.swing.JMenuItem();
         menuAddFilters = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         menuRemoveFilters = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
@@ -87,7 +89,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu3.setText("File");
 
-        menuLoadCsv.setText("Load CSV file into table");
+        jMenuItem1.setText("Connect datalake");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        menuAddCsv.setText("Add CSV file to the project");
+        menuAddCsv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddCsvActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuAddCsv);
+
+        menuLoadCsv.setText("Load CSV files");
         menuLoadCsv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuLoadCsvActionPerformed(evt);
@@ -102,14 +120,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu3.add(menuAddFilters);
-
-        jMenuItem1.setText("Connect datalake");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
 
         menuRemoveFilters.setText("Remove filters");
         menuRemoveFilters.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         
-        QueryCSV qcsv = new QueryCSV("/home/almadb/Downloads/");
+        QueryCSV qcsv = new QueryCSV();
         List<Patient> patients;
         
         if(filtersString.length() > 0){
@@ -194,9 +204,18 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     
-    private void menuLoadCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadCsvActionPerformed
-        fillTable();
-    }//GEN-LAST:event_menuLoadCsvActionPerformed
+    private void menuAddCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddCsvActionPerformed
+        if(this.datalake == null) {
+            JOptionPane.showMessageDialog(null, "Connect to datalake first!", "No datalake found", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        SelectCsvFromDatalake scfd = new SelectCsvFromDatalake();
+        scfd.setVisible(true);
+        scfd.setDatalake(datalake);
+        scfd.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        
+        addcsv = true;
+    }//GEN-LAST:event_menuAddCsvActionPerformed
 
     private void menuAddFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddFiltersActionPerformed
         ff.setVisible(true);
@@ -240,6 +259,15 @@ public class MainFrame extends javax.swing.JFrame {
         if(datalake.bucketExists("patientimages"))
             labelConnectedDatalake.setText("Connected to datalake");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuLoadCsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLoadCsvActionPerformed
+        if(addcsv){
+            fillTable();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Add csv first!", "No CSV file found", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_menuLoadCsvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +316,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelConnectedDatalake;
     private javax.swing.JLabel labelFiltersSet;
+    private javax.swing.JMenuItem menuAddCsv;
     private javax.swing.JMenuItem menuAddFilters;
     private javax.swing.JMenuItem menuLoadCsv;
     private javax.swing.JMenuItem menuRemoveFilters;

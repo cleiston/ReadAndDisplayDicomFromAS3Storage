@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 public class Datalake {
     
     private final MinioClient minioClient;
+    private String datalakeInfo;
     
     public Datalake(){
         minioClient =
@@ -36,6 +37,7 @@ public class Datalake {
               .endpoint("http://localhost:9000")
               .credentials("minio_access_key", "minio_secret_key")
               .build();
+        datalakeInfo = "Connected at http://localhost:9000";
     }
     
     public Datalake(String url, String accessKey, String secretKey){
@@ -48,6 +50,7 @@ public class Datalake {
               .endpoint(url)
               .credentials(accessKey, secretKey)
               .build();
+        datalakeInfo = "Connected at " + url;
     }
     
     public Iterable<Result<Item>> getItemsFromBucket(String bucket){
@@ -93,6 +96,53 @@ public class Datalake {
         return itemsName;
     }
     
+    public List<String> getCsvFromDatalake(){
+        List<String> buckets = this.getBucketList();
+        List<String> allCsvfiles = new ArrayList<>();
+        if(buckets != null){
+            for (String s : buckets){
+                allCsvfiles.addAll(this.getCsvFromBucket(s));
+            }
+        }
+        return allCsvfiles;
+    }
+    
+    public List<String> getCsvFromBucket(String bucket){
+        Iterable<Result<Item>> results = getItemsFromBucket(bucket);
+        if(results == null) return null;
+        ArrayList<String> itemsName = new ArrayList<>();
+        String dir;
+        for(Result<Item> r : results){
+            try {
+                dir = r.get().objectName();
+                if(dir.toLowerCase().endsWith(".csv")){
+                    itemsName.add(dir); // add only the files related to a patient
+                }
+            } catch (Exception e) {
+                System.err.println("Error getting csv files: " + e.getMessage());
+                itemsName = null;
+                break;
+            }
+        }
+        return itemsName;
+    }
+    
+    public List<String> getBucketList(){
+        List<Bucket> bucketList;
+        List<String> bucketListString = null;
+        try {
+            bucketList = minioClient.listBuckets();
+            bucketListString = new ArrayList<>();
+            for (Bucket bucket : bucketList) {
+                bucketListString.add(bucket.name());               
+            }
+        } catch (Exception e) {
+            System.err.println("Failed at retrieving bucket list. " + e.getMessage());
+        }
+        
+        return bucketListString;
+    }
+    
     public List<String> getBucketsList(){
         List<String> bucketListArray = new ArrayList<>();
         List<Bucket> bucketList;
@@ -133,5 +183,10 @@ public class Datalake {
             exists = false;
         }
         return exists;
+    }
+    
+    @Override
+    public String toString(){
+        return datalakeInfo;
     }
 }

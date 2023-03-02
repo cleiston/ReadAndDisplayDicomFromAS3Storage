@@ -19,9 +19,23 @@ import java.util.List;
 public class QueryCSV {
     private String pathToFile;
     private Connection conn;
+    private String fileName;
 
     public QueryCSV(String pathToFile) {
         this.pathToFile = pathToFile;
+        this.fileName = "SampleCohort_patData";
+        String url = "jdbc:relique:csv:" + pathToFile + "?" + "separator=," + "&" + "fileExtension=.csv";
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.err.println("Can't connect to database.\n" + e.getMessage());
+            conn = null;
+        }
+    }
+    
+    public QueryCSV() {
+        this.pathToFile = "/tmp/";
+        this.fileName= "temp";
         String url = "jdbc:relique:csv:" + pathToFile + "?" + "separator=," + "&" + "fileExtension=.csv";
         try {
             conn = DriverManager.getConnection(url);
@@ -68,7 +82,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName);
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -84,7 +98,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Age='" + age + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Age='" + age + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -100,7 +114,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Age>='" + ageMin + "' AND Age<='" + ageMax + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Age>='" + ageMin + "' AND Age<='" + ageMax + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -116,7 +130,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE PatientID='" + patientId + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE PatientID='" + patientId + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -132,7 +146,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Height='" + height + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Height='" + height + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -148,7 +162,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Height>='" + minHeight + "' AND Height<='" + maxHeight + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Height>='" + minHeight + "' AND Height<='" + maxHeight + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -164,7 +178,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Weight='" + weight + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Weight='" + weight + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -180,7 +194,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE BirthYear>='" + minBirthYear + "' AND BirthYear<='" + maxBirthYear + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE BirthYear>='" + minBirthYear + "' AND BirthYear<='" + maxBirthYear + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -196,7 +210,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE BirthYear='" + birthYear + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE BirthYear='" + birthYear + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -212,7 +226,7 @@ public class QueryCSV {
         try {
             stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery("SELECT * FROM SampleCohort_patData WHERE Weight>='" + minWeight + "' AND Weight<='" + maxWeight + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + fileName + " WHERE Weight>='" + minWeight + "' AND Weight<='" + maxWeight + "'");
             mapPatients(rs, patients);
             
         } catch (SQLException e) {
@@ -230,7 +244,7 @@ public class QueryCSV {
             return null;
         }
         
-        String query = "SELECT * FROM SampleCohort_patData WHERE " + subquery;
+        String query = "SELECT * FROM " + fileName + " WHERE " + subquery;
         Statement stmt;
         List<Patient> patients = new ArrayList<>();
         try {

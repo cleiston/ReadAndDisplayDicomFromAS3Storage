@@ -27,9 +27,25 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Connect datalake"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuAddCsv">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Add CSV file to the project"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAddCsvActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuLoadCsv">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Load CSV file into table"/>
+                <Property name="text" type="java.lang.String" value="Load CSV files"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuLoadCsvActionPerformed"/>
@@ -41,14 +57,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAddFiltersActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Connect datalake"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuRemoveFilters">
