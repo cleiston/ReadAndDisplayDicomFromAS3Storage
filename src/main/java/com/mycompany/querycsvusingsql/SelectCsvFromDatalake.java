@@ -182,7 +182,7 @@ public class SelectCsvFromDatalake extends javax.swing.JFrame {
             int selectedRow = tableDatalake.getSelectedRow();
             selectedFiles[selectedRow] = !selectedFiles[selectedRow];
             fillTable(csvFiles, "Files on Datalake", tableDatalake, false);
-            fillTable(csvFiles, "Files on Datalake", tableProject, true);
+            fillTable(csvFiles, "Files to load", tableProject, true);
         }
     }//GEN-LAST:event_buttonAddItem1ActionPerformed
 
