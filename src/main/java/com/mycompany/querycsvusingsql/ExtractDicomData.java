@@ -8,11 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.tool.dcm2json.Dcm2Json;
 
@@ -64,7 +60,7 @@ public class ExtractDicomData {
             dis.close();
             
             root = new JsonParser().parse(jsonString);
-            System.out.println(root.getAsJsonObject().get("00100020"));
+         
         } catch (Exception e) {
             System.err.println("Error opening Dicom file. " + e.getMessage());
         }

@@ -182,7 +182,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         else {
             patients = qcsv.findAll();
-            System.out.println("tamano da string: " + filtersString);
         }
         
         if(patients == null) return;

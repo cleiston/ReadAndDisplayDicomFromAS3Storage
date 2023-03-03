@@ -30,7 +30,6 @@ public class SelectCsvFromDatalake extends javax.swing.JFrame {
     public void setDatalake(Datalake datalake){
         this.datalake = datalake;
         csvFiles = datalake.getCsvFromDatalake();
-        System.out.println("\n\n\nnumber of itens on datalake: " + csvFiles.size());
         selectedFiles = new boolean[csvFiles.size()];
         labelInfo.setText(datalake.toString());
         fillTable(csvFiles, "Files on Datalake", tableDatalake, false);
@@ -193,8 +192,8 @@ public class SelectCsvFromDatalake extends javax.swing.JFrame {
             // get first column value from selected row
             int selectedRow = tableProject.getSelectedRow();
             selectedFiles[selectedRow] = !selectedFiles[selectedRow];
-            fillTable(csvFiles, "Files on Datalake", tableDatalake, false);
-            fillTable(csvFiles, "Files on Datalake", tableProject, true);
+            fillTable(csvFiles, "Files on datalake", tableDatalake, false);
+            fillTable(csvFiles, "Files to load", tableProject, true);
         }
     }//GEN-LAST:event_buttonRemoveItemActionPerformed
 
