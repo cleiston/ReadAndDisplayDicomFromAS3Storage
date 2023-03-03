@@ -68,7 +68,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;AlmaDB is a project coordinated by Sabato Melloni&lt;br&gt;with the aim of constructing an infraestructure to&lt;br&gt; store and process patient data.&lt;html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;AlmaDB is a project coordinated by Sabato Mellone&lt;br&gt;with the goal of constructing an infraestructure to&lt;br&gt; store and process patient data.&lt;html&gt;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

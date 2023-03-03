@@ -35,7 +35,7 @@ public class About extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel1.setText("About AlmaDB Project");
 
-        jLabel2.setText("<html>AlmaDB is a project coordinated by Sabato Melloni<br>with the aim of constructing an infraestructure to<br> store and process patient data.<html>");
+        jLabel2.setText("<html>AlmaDB is a project coordinated by Sabato Mellone<br>with the goal of constructing an infraestructure to<br> store and process patient data.<html>");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
