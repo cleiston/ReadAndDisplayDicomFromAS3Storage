@@ -95,8 +95,12 @@ public class ExtractDicomData {
                     .get("Value").getAsJsonArray()
                     .get(0).toString();
         }
-        if(value.length() > 0) value = value.substring(1, value.length()-1); // remove quotes
+        if(value.length() > 0) value = removeQuotes(value); // remove quotes
         return value;
+    }
+    
+    private String removeQuotes(String s){
+        return s.substring(1, s.length()-1);
     }
      
     public String getStudyDate(){
@@ -109,6 +113,18 @@ public class ExtractDicomData {
                     .get(0).toString();
         }
         return value;
+    }
+    
+    public String getSeriesInstanceUID(){
+        // 0020000E
+        String value = "";
+        if(isData()){
+            value = root.getAsJsonObject()
+                    .get("0020000E").getAsJsonObject()
+                    .get("Value").getAsJsonArray()
+                    .get(0).toString();
+        }
+        return removeQuotes(value);
     }
     
     public String getStudyDateFormatted(){

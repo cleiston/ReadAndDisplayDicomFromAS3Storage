@@ -4,10 +4,12 @@
  */
 package com.mycompany.querycsvusingsql;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,13 +55,16 @@ public class PatientDetails extends javax.swing.JFrame {
         textFieldPatientID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableListImages = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        labelInfo = new javax.swing.JLabel();
         labelPreview = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        fieldPatientId = new javax.swing.JTextField();
+        fieldStudyId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        fieldSeriesInstanceUID = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         fieldStudyDate = new javax.swing.JTextField();
+        labelThumbnail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,20 +88,34 @@ public class PatientDetails extends javax.swing.JFrame {
                 tableListImagesMouseClicked(evt);
             }
         });
+        tableListImages.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tableListImagesKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableListImages);
 
-        jLabel2.setText("Acquisition Date");
+        labelInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("Preview Image Selected");
+        jButton1.setText("Preview image in new window");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("PatientID");
+        jLabel3.setText("Study ID");
 
         jLabel4.setText("Study Date");
+
+        jLabel2.setText("Series Instance UID");
+
+        labelThumbnail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelThumbnail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                labelThumbnailKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,68 +129,100 @@ public class PatientDetails extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
                         .addComponent(labelPreview)
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(fieldPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(fieldStudyDate, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(60, 60, 60))))
+                                    .addComponent(fieldStudyDate, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldStudyId, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldSeriesInstanceUID, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelThumbnail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(86, 86, 86)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelPreview, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(47, 47, 47)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(fieldPatientId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(fieldStudyDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(textFieldPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(39, 39, 39)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(fieldStudyDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel4))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(fieldSeriesInstanceUID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel2)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(fieldStudyId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labelPreview)
+                                        .addGap(149, 149, 149)))
+                                .addGap(34, 34, 34)
+                                .addComponent(labelThumbnail, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableListImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListImagesMouseClicked
-        ExtractDicomData edd = new ExtractDicomData();
+    private void updatePanel(){
+        fieldStudyId.setText(""); // clean fields
+        fieldStudyDate.setText("");
+        fieldSeriesInstanceUID.setText("");
+   
         String imageSelected = tableListImages.getValueAt(tableListImages.getSelectedRow(), 0).toString();
+        labelInfo.setText("Loading... ");
         downloadImage(imageSelected);
-        fieldPatientId.setText(edd.getStudyId());
+        
+        ExtractDicomData edd = new ExtractDicomData();
+        
+        labelInfo.setText("Patient/Image: " + imageSelected);
+        
+        fieldStudyId.setText(edd.getStudyId());
         fieldStudyDate.setText(edd.getStudyDateFormatted());
+        fieldSeriesInstanceUID.setText(edd.getSeriesInstanceUID());
+        
+        ImageIcon imageIcon = new ImageIcon("preview.jpg"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(250, 250,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg);
+        labelThumbnail.setIcon(imageIcon);
+    }
+    
+    private void tableListImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListImagesMouseClicked
+        
+        updatePanel();
     }//GEN-LAST:event_tableListImagesMouseClicked
 
     private void downloadImage(String imageSelected){
@@ -194,8 +245,8 @@ public class PatientDetails extends javax.swing.JFrame {
         if(isRowSelected && datalake != null){ // only works if there is a row selected and there's an instance of the datalake       
             ImageView imageView = new ImageView();
             imageView.setTitle(imageSelected);
-            if(imageIcon != null) imageIcon.getImage().flush();
             imageIcon = new ImageIcon("preview.jpg");
+            imageIcon.getImage().flush();
             imageView.setContentPane(new JLabel(imageIcon));
             imageView.setVisible(true);
             imageView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -204,6 +255,14 @@ public class PatientDetails extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No image selected", "Error at selecting image", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void labelThumbnailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelThumbnailKeyPressed
+        //updatePanel();
+    }//GEN-LAST:event_labelThumbnailKeyPressed
+
+    private void tableListImagesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableListImagesKeyPressed
+        updatePanel();
+    }//GEN-LAST:event_tableListImagesKeyPressed
 
     /**
      * @param args the command line arguments
@@ -241,15 +300,18 @@ public class PatientDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField fieldPatientId;
+    private javax.swing.JTextField fieldSeriesInstanceUID;
     private javax.swing.JTextField fieldStudyDate;
+    private javax.swing.JTextField fieldStudyId;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelPreview;
+    private javax.swing.JLabel labelThumbnail;
     private javax.swing.JTable tableListImages;
     private javax.swing.JTextField textFieldPatientID;
     // End of variables declaration//GEN-END:variables
