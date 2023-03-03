@@ -182,7 +182,7 @@ public class FiltersFrame extends javax.swing.JFrame {
                                 .addGap(88, 88, 88)
                                 .addComponent(jLabel6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
+                                .addGap(64, 64, 64)
                                 .addComponent(jLabel11)
                                 .addGap(44, 44, 44)
                                 .addComponent(jLabel12))))
@@ -350,14 +350,14 @@ public class FiltersFrame extends javax.swing.JFrame {
         if(validSearch){
         
             // process strings
-            filters += patientId.length() > 0 ? " PatientID='" + patientId + "' AND " : "";
-            filters += height.length() > 0 ? " Height='" + height + "' AND " : "";
-            filters += age.length() > 0 ? " Age='" + age + "' AND " : "";
-            filters += weight.length() > 0 ? " Weight='" + weight + "' AND " : "";
-            filters += birthYear.length() > 0 ? " BirthYear='" + birthYear + "' AND " : "";
+            filters += patientId.length() > 1 ? " PatientID='" + patientId + "' AND " : "";
+            filters += height.length() > 1 ? " Height='" + height + "' AND " : "";
+            filters += age.length() > 1 ? " Age='" + age + "' AND " : "";
+            filters += weight.length() > 1 ? " Weight='" + weight + "' AND " : "";
+            filters += birthYear.length() == 4 ? " BirthYear='" + birthYear + "' AND " : "";
             filters += ageMin.length() > 0 && ageMax.length() > 0 ? " Age>='" + ageMin + "' AND Age<='" + ageMax + "' AND " : "";
-            filters += heightMin.length() > 0 && heightMax.length() > 0 ? " Height>='" + heightMin + "' AND Height<='" + heightMax + "' AND " : "";
-            filters += weightMin.length() > 0 && weightMax.length() > 0 ? " Weight>='" + weightMin + "' AND Weight<='" + weightMax + "' AND " : "";
+            filters += heightMin.length() > 1 && heightMax.length() > 0 ? " Height>='" + heightMin + "' AND Height<='" + heightMax + "' AND " : "";
+            filters += weightMin.length() > 1 && weightMax.length() > 0 ? " Weight>='" + weightMin + "' AND Weight<='" + weightMax + "' AND " : "";
             filters += birthYearMin.length() > 0 && birthYearMax.length() > 0 ? " BirthYear>='" + birthYearMin + "' AND BirthYear<='" + birthYearMax + "' AND" : "";
             filters += isMasculine ? " Sex='M' AND " : "";
             filters += isFeminine ? " Sex='F' AND " : "";

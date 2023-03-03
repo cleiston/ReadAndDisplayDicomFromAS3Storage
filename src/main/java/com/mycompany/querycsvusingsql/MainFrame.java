@@ -58,9 +58,12 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         menuAddCsv = new javax.swing.JMenuItem();
         menuLoadCsv = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
         menuAddFilters = new javax.swing.JMenuItem();
         menuRemoveFilters = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -113,13 +116,25 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu3.add(menuLoadCsv);
 
+        jMenuItem3.setText("Exit");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar2.add(jMenu3);
+
+        jMenu5.setText("Filter");
+
         menuAddFilters.setText("Add filters");
         menuAddFilters.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuAddFiltersActionPerformed(evt);
             }
         });
-        jMenu3.add(menuAddFilters);
+        jMenu5.add(menuAddFilters);
 
         menuRemoveFilters.setText("Remove filters");
         menuRemoveFilters.addActionListener(new java.awt.event.ActionListener() {
@@ -127,11 +142,20 @@ public class MainFrame extends javax.swing.JFrame {
                 menuRemoveFiltersActionPerformed(evt);
             }
         });
-        jMenu3.add(menuRemoveFilters);
+        jMenu5.add(menuRemoveFilters);
 
-        jMenuBar2.add(jMenu3);
+        jMenuBar2.add(jMenu5);
 
-        jMenu4.setText("Edit");
+        jMenu4.setText("Help");
+
+        jMenuItem2.setText("About");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
         jMenuBar2.add(jMenu4);
 
         setJMenuBar(jMenuBar2);
@@ -224,7 +248,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void menuRemoveFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRemoveFiltersActionPerformed
         filtersString = "";
-        ff.dispose();
+        fillTable();
+        ff = new FiltersFrame(this);
     }//GEN-LAST:event_menuRemoveFiltersActionPerformed
 
     private void jButtonPatientDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPatientDetailsActionPerformed
@@ -268,6 +293,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuLoadCsvActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new About().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -309,9 +342,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelConnectedDatalake;
     private javax.swing.JLabel labelFiltersSet;
